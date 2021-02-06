@@ -37,6 +37,7 @@ function [currOptw,S,setValues] = Learn2CriticizeSetSelection(X,Y,m,kernelType,v
     currK = [];
     curru = [];
     runningInnerProduct = zeros(m,numY);
+    start = tic;
     %%
     while (sizeS < m)
         tic;
@@ -110,4 +111,5 @@ function [currOptw,S,setValues] = Learn2CriticizeSetSelection(X,Y,m,kernelType,v
             fprintf('Finished choosing %d elements\n',sizeS);
         end
     end
+    fprintf('Time taken to choose the optima set for L2C is = %f secs\n',toc(start));
 end
