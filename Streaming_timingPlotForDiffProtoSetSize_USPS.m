@@ -1,7 +1,7 @@
 runCode = false;
 kernelType = 'Gaussian';
 sigmaVal = 5;
-name = 'UCI';
+name = 'USPS';
 % Level of sparsity
 mVals = 50:25:300;
 nummValues = length(mVals);
