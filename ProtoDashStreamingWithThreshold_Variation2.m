@@ -1,4 +1,4 @@
-function [currOptw,chosenSet,currSetValue,stageWeights,stageGradients] = ProtoDashStreamingWithThreshold_Variation2(X,Y,m,kernelType,th,varargin) 
+function [currOptw,chosenSet,currSetValue,stageWeights,stageGradients,timeConsumed] = ProtoDashStreamingWithThreshold_Variation2(X,Y,m,kernelType,th,varargin) 
     if(strcmpi(kernelType,'Gaussian'))
         % Std. Dev. of the kernel if it is Gaussian
         if(~isempty(varargin))
@@ -119,6 +119,7 @@ function [currOptw,chosenSet,currSetValue,stageWeights,stageGradients] = ProtoDa
     end
     chosenSet = S(1:sizeS);
     fprintf('End of stream reached. Number of times the threshold was reached = %d\n',sizeS);
-    fprintf('Time taken for one pass over the data = %f secs\n',toc(streamingStart));
+    timeConsumed = toc(streamingStart);
+    fprintf('Time taken for one pass over the data = %f secs\n',timeConsumed);
     fprintf('Value of the current optimal set = %f for threshold = %f\n',currSetValue,th);
 end
