@@ -19,4 +19,4 @@ USPS:
 Data:
 -----
 Both Letters and USPS data are provided in the zipped file.
-Please download the MNIST data from "http://yann.lecun.com/exdb/mnist/" and save in the MNIST folder
+Please download the MNIST data from "http://yann.lecun.com/exdb/mnist/" and save it inside the MNIST folder.
