@@ -302,8 +302,19 @@ if(plotFigure)
         %ylim([0 0.055]);
         plotPosition = plotPosition +1;
     end
-%     if(saveOutput)
-%         saveFigFileName = strcat(outputFileName,'_p',num2str(proportions(p)));
-%         saveas(gcf,saveFigFileName,'jpeg');
-%     end
+    figure(104);
+    labelsForPlot = 0:9;
+    numLabelsPlot = length(labelsForPlot); 
+    numProtoPerDigits = 5;
+    protosSelected = Y(:,S_PDS);
+    for protoLabel = 1:numLabelsPlot
+        locs = protoLabels_PDS(1:setSize_PDS(1))==labelsForPlot(protoLabel);
+        img = protosSelected(:,locs);
+        plotPosition = protoLabel+numLabelsPlot;
+        for protoIndex = 2:numProtoPerDigits+1
+            subplot(numProtoPerDigits+1,numLabelsPlot,plotPosition)
+            imagesc(reshape(img(:,protoIndex),16,16)'); axis off; axis tight;
+            plotPosition = plotPosition + numLabelsPlot;
+        end
+    end
 end

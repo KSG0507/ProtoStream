@@ -26,6 +26,7 @@ fprintf('Output file: %s\n',outputFileName);
 %%
 if(runCode)
     time_PD = zeros(1,nummValues);
+    time_L = zeros(1,nummValues);
     time_PB = zeros(1,nummValues);
     time_PDS = zeros(1,nummValues);
     time_PGS = zeros(1,nummValues);
@@ -42,17 +43,22 @@ if(runCode)
         time_PD(mcount) = toc(PDStartTime);
         fprintf('Time taken by ProtoDash for m = %d is %f\n',m,time_PD(mcount));
         %%
-        PBStartTime = tic;
-        [w_PB,S_PBT,functionSetValue_PB,~] = ProtoDashStreaming(Y,Y,m,kernelType,sigmaVal,meanInnerProductY);
-        time_PB(mcount) = toc(PBStartTime);
-        fprintf('Time taken by ProtoBasic for m = %d is %f\n',m,time_PB(mcount));
+%         PBStartTime = tic;
+%         [w_PB,S_PBT,functionSetValue_PB,~] = ProtoDashStreaming(Y,Y,m,kernelType,sigmaVal,meanInnerProductY);
+%         time_PB(mcount) = toc(PBStartTime);
+%         fprintf('Time taken by ProtoBasic for m = %d is %f\n',m,time_PB(mcount));
+        %%
+        L2CStartTime = tic;
+        [w_L,S_L,setValues_L] = Learn2CriticizeSetSelection(Y,Y,m,kernelType,sigmaVal,meanInnerProductY);
+        time_L(mcount) = toc(L2CStartTime);
+        fprintf('Time taken by MMD-Critic for m = %d is %f\n',m,time_PD(mcount));
         %%
         currTh = 0.001;
         epsilon = 0.4;
         drLowerBound = m*(1+epsilon);
-        protoStreamStartTime = tic;
-        [optimumW_PDSForTh,S_PDSForTh,setValue_PDSForTh] = ProtoDashStreamingWithThreshold_Variation2(Y,Y,m,kernelType,currTh,sigmaVal,meanInnerProductY,true,drLowerBound);
-        time_PDS(mcount) = toc(protoStreamStartTime);
+        %protoStreamStartTime = tic;
+        [optimumW_PDSForTh,S_PDSForTh,setValue_PDSForTh,~,~,timeTaken_PDSFotTh] = ProtoDashStreamingWithThreshold_Variation2(Y,Y,m,kernelType,currTh,sigmaVal,meanInnerProductY,true,drLowerBound);
+        time_PDS(mcount) = timeTaken_PDSFotTh;
         fprintf('Time taken by ProtoStream for m = %d is %f\n',m,time_PDS(mcount));
         %%
         if(runGreedyStreaming)

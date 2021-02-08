@@ -1,4 +1,4 @@
-runCode = true;
+runCode = false;
 runForOneTh = true;
 kernelType = 'Gaussian';
 sigmaVal = 5;
@@ -375,4 +375,21 @@ if(plotFigure)
 % 
 %     hold off;
 
+
+    figure(104);
+    labelsForPlot = 0:9;
+    numLabelsPlot = length(labelsForPlot); 
+    numProtoPerDigits = 5;
+    protosSelected = Y(:,S_PDS);
+    for protoLabel = 1:numLabelsPlot
+        locs = protoLabels_PDS==labelsForPlot(protoLabel);
+        img = protosSelected(:,locs);
+        plotPosition = protoLabel+numLabelsPlot;
+        for protoIndex = 2:numProtoPerDigits+1
+            subplot(numProtoPerDigits+1,numLabelsPlot,plotPosition)
+            imagesc(reshape(img(:,protoIndex),28,28)'); axis off; axis tight;
+            plotPosition = plotPosition + numLabelsPlot;
+        end
+    end
 end
+            

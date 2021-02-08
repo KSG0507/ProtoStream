@@ -1,5 +1,5 @@
-runCode = true;
-runForOneTh = true;
+runCode = false;
+runForOneTh = false;
 runForOneThPG = true;
 kernelType = 'Gaussian';
 sigmaVal = 5;

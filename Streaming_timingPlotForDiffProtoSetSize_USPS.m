@@ -26,6 +26,7 @@ fprintf('Output file: %s\n',outputFileName);
 %%
 if(runCode)
     time_PD = zeros(1,nummValues);
+    time_L = zeros(1,nummValues);
     time_PB = zeros(1,nummValues);
     time_PDS = zeros(1,nummValues);
     time_PGS = zeros(1,nummValues);
@@ -42,6 +43,11 @@ if(runCode)
 %         [w_PD,S_PDT,functionSetValue_PD,~] = HeuristicSetSelection(Y,Y,m,kernelType,sigmaVal,meanInnerProductY,1);
 %         time_PD(mcount) = toc(PDStartTime);
 %         fprintf('Time taken by ProtoDash for m = %d is %f\n',m,time_PD(mcount));
+%         %%
+%         L2CStartTime = tic;
+%         [w_L,S_L,setValues_L] = Learn2CriticizeSetSelection(Y,Y,m,kernelType,sigmaVal,meanInnerProductY);
+%         time_L(mcount) = toc(L2CStartTime);
+%         fprintf('Time taken by MMD-Critic for m = %d is %f\n',m,time_PD(mcount));
         %%
 %         PBStartTime = tic;
 %         [w_PB,S_PBT,functionSetValue_PB,~] = ProtoDashStreaming(Y,Y,m,kernelType,sigmaVal,meanInnerProductY);
@@ -70,9 +76,9 @@ if(runCode)
             deleteFileName = strcat('Variables_',outputFileName,'.mat');
             delete(deleteFileName);
             if(runGreedyStreaming)
-                save(strcat('Variables_',outputFileName),'time_PD','time_PB','time_PDS','time_PGS');
+                save(strcat('Variables_',outputFileName),'time_PD','time_L','time_PB','time_PDS','time_PGS');
             else
-                save(strcat('Variables_',outputFileName),'time_PD','time_PB','time_PDS');
+                save(strcat('Variables_',outputFileName),'time_PD','time_L','time_PB','time_PDS');
             end
         end
     end
@@ -82,10 +88,10 @@ end
 time_PB(2) = (time_PB(1)+time_PB(3))/2;
 if(plotFigure)
     fontSize = 36;
-    %plot(mVals,time_PD,'b-','Linewidth',2);
-    %hold on;
-    %plot(mVals,time_PB,'r-.','Linewidth',2);
-    %hold on;
+%     plot(mVals,time_PD,'b-','Linewidth',2);
+%     hold on;
+%     plot(mVals,time_L,'r-','Linewidth',2);
+%     hold on;
     plot(mVals,time_PDS,'g-','Linewidth',2);
     hold on;
     if(runGreedyStreaming)
